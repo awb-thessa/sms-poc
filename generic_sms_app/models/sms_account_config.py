@@ -16,9 +16,7 @@ except ImportError :
 
 import urllib.request
 import urllib.parse
-
 import json
-
 
 class SmsAccountConfiguration(models.Model):
 
@@ -83,6 +81,6 @@ class SmsAccountConfiguration(models.Model):
                 resp, code = (f.read(), f.code)
                 api_response = yaml.load(resp)
                 if api_response.get('status') == 'success':
-                    raise UserError(_('Test Connection Successfully!.'))
+                    raise UserError(_('Test Connection Successfully to SMART Gateway!.'))
                 else:
                     raise UserError(_('Wrong Authentication Key!.'))
