@@ -85,7 +85,7 @@ class SmsAccountConfiguration(models.Model):
                 _logger.debug('CODE', code)
                               
                 
-                if len(resp)!=0:
+                if resp!=False:
                     raise UserError(_('Test Connection Successfully to SMART Gateway!.'))
                 else:
                     raise UserError(_('Wrong Authentication Key!.'))
