@@ -17,6 +17,8 @@ except ImportError :
 import urllib.request
 import urllib.parse
 
+import json
+
 
 class SmsAccountConfiguration(models.Model):
 
@@ -72,7 +74,7 @@ class SmsAccountConfiguration(models.Model):
                 #    + urllib.parse.urlencode(params))
                                 
                 req = urllib.request.Request('https://messagingsuite.smart.com.ph/cgphttp/servlet/sendmsg?destination=63950467975&text=initial+test+message+fromodoo', method="POST")
-                req.add_header('Authorization': 'Basic amVycnkubWFycXVlc2VzQG1hbmRhbGF5LmNvbS5waDpwNGpOZ0w5Uw==')
+                req.add_header('Authorization', 'Basic amVycnkubWFycXVlc2VzQG1hbmRhbGF5LmNvbS5waDpwNGpOZ0w5Uw==')
                 req.add_header('Content-Type', 'application/json')
                 data = { "hello": "world" }
                 data = json.dumps(data)
