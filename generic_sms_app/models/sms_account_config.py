@@ -68,13 +68,11 @@ class SmsAccountConfiguration(models.Model):
                     raise UserError("Exception when calling AccountApi->account_get: %s\n" % e)
             elif order.account_gateway == 'textlocal': 
                 params = {'apikey': order.textlocal_authkey}
-                f = urllib.request.urlopen('https://messagingsuite.smart.com.ph/cgphttp/servlet/sendmsg?destination=63950467975&text=initial+test+message+fromodoo')
-                    )
+                f = urllib.request.urlopen('https://api.textlocal.in/get_sender_names/?'
+                    + urllib.parse.urlencode(params))
                 resp, code = (f.read(), f.code)
                 api_response = yaml.load(resp)
                 if api_response.get('status') == 'success':
                     raise UserError(_('Test Connection Successfully!.'))
                 else:
                     raise UserError(_('Wrong Authentication Key!.'))
-           
-
