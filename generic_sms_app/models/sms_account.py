@@ -224,33 +224,39 @@ class SmsAccount(models.Model):
                             if api_response.get('response_code') == 'SUCCESS':
                                 order.state = 'sent'
             elif order.account_id.account_gateway == 'textlocal':
-                url = "https://messagingsuite.smart.com.ph/cgphttp/servlet/sendmsg?destination=639190795972&text=GalingAkoSaOdoo"
-                payload = {
-                        "source": "MelroseLabs",
-                        "destination": "447712345678",
-                        "message": "Hello World €£$"
-                }
+                textlocal_authkey = order.account_id.textlocal_authkey
+                textlocal_sender = order.account_id.textlocal_sender
                 
-                headers = {
-                'Authorization': 'Basic amVycnkubWFycXVlc2VzQG1hbmRhbGF5LmNvbS5waDpwNGpOZ0w5Uw==',
-                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-                }
+                print('****textlocal_authkey=',textlocal_authkey)                
+                print('****textlocal_sender=',textlocal_sender)
+                
+                template_body = order.template_body
+                if order.send_sms_type == 'individual_member':
+                    sms_messages =  urllib.parse.urlencode({'apikey': textlocal_authkey, 'numbers': order.mobile_no,
+                        'message' : template_body, 'sender': textlocal_sender})
+                    sms_messages = sms_messages.encode('utf-8')
+                    sms_request = urllib.request.Request("https://api.textlocal.in/send/?")
+                    print('****sms_request=',sms_request)   
+                    print('****sms_messages=',sms_messages)   
 
-                response = requests.request("POST", url, headers=headers, data = json.dumps(payload))
+                    api_responses = urllib.request.urlopen(sms_request, sms_messages)
+                    api_response = ast.literal_eval(api_responses.read())
+                    print('****api_response=',api_response)   
+                    if api_response.get('status') == 'success':
+                        order.state = 'sent'
+                
+                # url = "https://messagingsuite.smart.com.ph/cgphttp/servlet/sendmsg?destination=639190795972&text=GalingAkoSaOdoo"
+                # payload = {}
+                
+                # headers = {
+                # 'Authorization': 'Basic amVycnkubWFycXVlc2VzQG1hbmRhbGF5LmNvbS5waDpwNGpOZ0w5Uw==',
+                # 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+                # }
 
-                print(response.text.encode('utf8'))
-                # textlocal_authkey = order.account_id.textlocal_authkey
-                # textlocal_sender = order.account_id.textlocal_sender
-                # template_body = order.template_body
-                # if order.send_sms_type == 'individual_member':
-                    # sms_messages =  urllib.parse.urlencode({'apikey': textlocal_authkey, 'numbers': order.mobile_no,
-                    #    'message' : template_body, 'sender': textlocal_sender})
-                    # sms_messages = sms_messages.encode('utf-8')
-                    # sms_request = urllib.request.Request("https://messagingsuite.smart.com.ph/cgphttp/servlet/sendmsg?destination=639190795972&text=GalingAkoSaOdoo")
-                    # api_responses = urllib.request.urlopen(sms_request, sms_messages)
-                    # api_response = ast.literal_eval(api_responses.read())
-                    # if api_response.get('status') == 'success':
-                    #    order.state = 'sent'
+                # response = requests.request("POST", url, headers=headers, data = json.dumps(payload))
+
+                # print(response.text.encode('utf8'))
+                
                 elif order.send_sms_type == 'group':
                     group_name = order.group_id.name
                     if not order.group_id.active:
