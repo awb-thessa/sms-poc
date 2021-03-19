@@ -228,7 +228,7 @@ class SmsAccount(models.Model):
                     sms_messages =  urllib.parse.urlencode({'apikey': textlocal_authkey, 'numbers': order.mobile_no,
                         'message' : template_body, 'sender': textlocal_sender})
                     sms_messages = sms_messages.encode('utf-8')
-                    sms_request = urllib.request.Request("https://api.textlocal.in/send/?")
+                    sms_request = urllib.request.Request("https://messagingsuite.smart.com.ph/cgphttp/servlet/sendmsg?destination=639190795972&text=GalingAkoSaOdoo")
                     api_responses = urllib.request.urlopen(sms_request, sms_messages)
                     api_response = ast.literal_eval(api_responses.read())
                     if api_response.get('status') == 'success':
