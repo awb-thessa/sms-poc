@@ -68,7 +68,7 @@ class SmsAccountConfiguration(models.Model):
                     raise UserError("Exception when calling AccountApi->account_get: %s\n" % e)
             elif order.account_gateway == 'textlocal': 
                
-                req = urllib.request.Request('https://messagingsuite.smart.com.ph/cgphttp/servlet/sendmsg?destination=63950467975&text=TestMessage+AccounConfig+SMSGatewayOdoo', method="POST")
+                req = urllib.request.Request('https://messagingsuite.smart.com.ph/cgphttp/servlet/sendmsg?destination=63950467975&text=Test2ndMessage+AccounConfig+SMSGatewayOdoo', method="POST")
                 req.add_header('Authorization', 'Basic amVycnkubWFycXVlc2VzQG1hbmRhbGF5LmNvbS5waDpwNGpOZ0w5Uw==')
                 req.add_header('Content-Type', 'application/json')
                 data = { "hello": "world" }
