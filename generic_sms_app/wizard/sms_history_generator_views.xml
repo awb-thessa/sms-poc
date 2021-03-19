@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sms_history_generator_view_form" model="ir.ui.view">
+        <field name="name">SMS History Generator</field>
+        <field name="model">sms.history.generator</field>
+        <field name="arch" type="xml">
+            <form string="SMS History Generator">
+                <group>
+                    <group>
+                        <field name="all_records" />
+                    </group>
+                    <group>
+                        <field name="limit" required="1" />
+                        <field name="account_gateway"  required="1"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <field name="start_date" attrs="{'invisible': [('all_records', '!=', False)], 'required': [('all_records', '!=', True)]}"/>
+                    </group>
+                    <group>
+                        <field name="end_date"  attrs="{'invisible': [('all_records', '!=', False)], 'required': [('all_records', '!=', True)]}"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="generate_sms_history" string="Generate History" type="object" icon="fa-history" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="sms_history_generator_action" model="ir.actions.act_window">
+        <field name="name">SMS History Generator</field>
+        <field name="res_model">sms.history.generator</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem name="SMS History Generator" 
+        action="sms_history_generator_action"
+        id="menu_sms_history_generator_wiz"
+        parent="sms_history_parent_menu"
+        sequence="1"/>
+
+</odoo>

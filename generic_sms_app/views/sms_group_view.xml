@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+      <record id="sms_groups_view_form" model="ir.ui.view">
+          <field name="name">sms.groups.view.form</field>
+          <field name="model">sms.groups</field>
+          <field name="arch" type="xml">
+              <form string="Send SMS Campaigns">
+                    <sheet>
+                        <div class="oe_button_box box_lgtblue" name="button_box">
+                            <button class="oe_stat_button" icon="fa-folder-open" name="open_members_details" type="object">
+                                <field name="member_count" string="Total Contacts" widget="statinfo"/>
+                            </button>
+                            <button name="toggle_active" type="object"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/><h1><field name="name" required="1"/></h1>
+                        </div>
+                        <group>
+                            <field name="member_type" required="1"/>
+                            <field name="mg_cont_group_id" readonly="1" />
+                        </group>
+                        <label for="member_ids" string="Contacts" class="oe_edit_only"/>
+                        <field name="member_ids" nolabel="1">
+                            <tree string="Contacts">
+                                <field name="display_name" />
+                                <field name="mobile" />
+                                <field name="email" />
+                            </tree>
+                        </field>
+                       </sheet>
+                </form>
+          </field>
+      </record>
+
+      <record id="sms_groups_view_tree" model="ir.ui.view">
+          <field name="name">sms.groups.view.tree</field>
+          <field name="model">sms.groups</field>
+          <field name="arch" type="xml">
+              <tree string="Send SMS Campaigns">
+                  <field name="name" />
+                  <field name="member_type" />
+                  <field name="member_count" />
+              </tree>
+          </field>
+      </record>
+
+      <record id="sms_groups_action" model="ir.actions.act_window">
+          <field name="name">Send SMS Campaigns</field>
+          <field name="res_model">sms.groups</field>
+          <field name="view_mode">tree,form</field>
+      </record>
+
+      <menuitem id="sms_groups_menu" name="Send SMS Campaigns"
+        parent="sms_parent_main_menu" action="sms_groups_action" sequence="3"/>
+
+</odoo>

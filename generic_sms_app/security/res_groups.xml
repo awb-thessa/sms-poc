@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record id="group_enable_sms_feacture" model="res.groups">
+            <field name="name">Enable SMS Gateway Feature</field>
+        </record>
+
+    </data>
+</odoo>

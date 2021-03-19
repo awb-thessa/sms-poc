@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+
+        <!-- SMS Gateway Template -->
+        <!-- Global Template -->
+        
+        <!-- Global Template Short Birthday Wishes Messages-->
+        <record id="sms_template_for_birthday_wishes_1" model="account.sms.template">
+            <field name="name">Short Happy Birthday Wishes</field>
+            <field name="global_temp">1</field>
+            <field name="template_body">Let your all the dreams to be on fire and light your birthday candles with that. Have a gorgeous birthday.</field>
+        </record>
+
+        <!-- Global Template Christmas Wishes Messages -->
+        <record id="sms_template_for_christmas_wishes_2" model="account.sms.template">
+            <field name="name">Christmas Thank You Wishes</field>
+            <field name="global_temp">1</field>
+            <field name="template_body">The wonders of Christmas delight are the great gifts of the season: the gift of love, friends, family and the gift of you. Merry Christmas.</field>
+        </record>
+
+        <!-- Global Template For Diwali Wishes Messages -->
+        <record id="sms_template_for_diwali_wishes_3" model="account.sms.template">
+            <field name="name">Diwali Wishes</field>
+            <field name="global_temp">1</field>
+            <field name="template_body">May this auspicious occasion of Diwali bring happiness, prosperity, health, and peace in your life.</field>
+        </record>
+
+        <!-- Global Template For Happy Holiday Wishes Messages -->
+        <record id="sms_template_for_thanksgibving_wishes_message_4" model="account.sms.template">
+            <field name="name">Thanksgiving Wishes</field>
+            <field name="global_temp">1</field>
+            <field name="template_body">I am thankful for the joy and happiness in my life. Wishing you peace, love and happiness on this Thanksgiving Day!</field>
+        </record>
+
+        <!-- Invoice Validate Template -->
+        <record id="sms_template_for_invoice_validate_2" model="account.sms.template">
+            <field name="name">SMS Notification To Customer For Account Invoice Validate</field>
+            <field name="global_temp">0</field>
+            <field name="condition">invoice_validate</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="template_body">Dear Customer, Your Invoice Validate Successfully !. Administrator</field>
+        </record>
+
+        <!-- Sale Order Confirmed Template-->
+        <record id="sms_template_for_sale_order_confirmed_3" model="account.sms.template">
+            <field name="name">SMS Notification To Customer For Order Confirmed</field>
+            <field name="global_temp">0</field>
+            <field name="condition">order_confirmed</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="template_body">Dear Customer, Your Order Confirmed Successfully !. Administrator</field>
+        </record>
+
+        <!-- Account Invoice Registered Payment Template-->
+        <record id="sms_template_for_account_invoice_payment_4" model="account.sms.template">
+            <field name="name">SMS Notification To Customer For Account Invoice Paid</field>
+            <field name="global_temp">0</field>
+            <field name="condition">invoice_paid</field>
+            <field name="model_id" ref="account.model_account_payment"/>
+            <field name="template_body">Dear Customer, Your Invoice Payment Successfully !. Administrator</field>
+        </record>
+
+        <!-- Sale Order Cancelled Template-->
+        <record id="sms_template_for_sale_order_cancelled_5" model="account.sms.template">
+            <field name="name">SMS Notification To Customer For Order Cancelled</field>
+            <field name="global_temp">0</field>
+            <field name="condition">order_cancelled</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="template_body">Dear Customer, Your Order Cancelled !. Administrator</field>
+        </record>
+
+        <!-- Sale Order Product Delivered Template-->
+        <record id="sms_template_for_sale_order_product_delivered_6" model="account.sms.template">
+            <field name="name">SMS Notification To Customer For Order Delivered</field>
+            <field name="global_temp">0</field>
+            <field name="condition">order_delivered</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="template_body">Dear Customer, Your Order Delivered Successfully !. Administrator</field>
+        </record>
+
+        <!-- Sale Order Placed Template-->
+        <record id="sms_template_for_sale_order_placed_7" model="account.sms.template">
+            <field name="name">SMS Notification To Customer For Order Placed</field>
+            <field name="global_temp">0</field>
+            <field name="condition">order_placed</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="template_body">Dear Customer Your Order Placed Successfully !. Administrator</field>
+        </record>
+
+    </data>
+</odoo>

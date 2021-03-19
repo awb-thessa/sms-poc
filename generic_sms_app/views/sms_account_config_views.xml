@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sms_account_config_view_form" model="ir.ui.view">
+        <field name="name">sms.account.configuration.view.form</field>
+        <field name="model">sms.account.configuration</field>
+        <field name="arch" type="xml">
+            <form string="Account Configuration">
+                <sheet>
+                    <div class="oe_button_box box_lgtblue" name="button_box">
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <separator string="SMS Configuration" colspan="4"/>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                        <group>
+                            <field name="priority"/>
+                        </group>
+                    </group>
+                    <separator string="Connection Information" colspan="4"/>
+                    <group>
+                        <field name="account_gateway" required="1"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="textlocal_sender" attrs="{'required': [('account_gateway', '==', 'textlocal')],'invisible': [('account_gateway', '!=', 'textlocal')]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="msg_sender" attrs="{'required': [('account_gateway', '==', 'msg91')],'invisible': [('account_gateway', '!=', 'msg91')]}"/>
+                        </group>
+                        <group>
+                            <field name="msg_route" attrs="{'required': [('account_gateway', '==', 'msg91')],'invisible': [('account_gateway', '!=', 'msg91')]}"/>
+                            <field name="msg_country_code" attrs="{'required': [('account_gateway', '==', 'msg91')],'invisible': [('account_gateway', '!=', 'msg91')]}"/>
+                        </group>
+                    </group>
+                    <separator string="Security And Authentication" colspan="4" attrs="{'invisible': [('account_gateway', '!=', 'msg91')]}"/>
+                    <group>
+                        <!-- MSG Details -->
+                        <field name="msg_authkey" attrs="{'required': [('account_gateway', '==', 'msg91')],'invisible': [('account_gateway', '!=', 'msg91')]}"/>
+                        <!-- QuickSend Details -->
+                        <field name="clicksend_username" attrs="{'required': [('account_gateway', '==', 'clicksend')],'invisible': [('account_gateway', '!=', 'clicksend')]}"/>
+                        <field name="clicksend_apikey" attrs="{'required': [('account_gateway', '==', 'clicksend')],'invisible': [('account_gateway', '!=', 'clicksend')]}" />
+                        <!-- TextLocal Details -->
+                        <field name="textlocal_authkey" attrs="{'required': [('account_gateway', '==', 'textlocal')],'invisible': [('account_gateway', '!=', 'textlocal')]}" />
+
+                        <button name="action_test_connection" type="object" string="Test Connection" attrs="{'invisible': [('account_gateway', 'not in', ['msg91','clicksend','textlocal'])]}" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sms_account_config_view_tree" model="ir.ui.view">
+      <field name="name">sms.account.configuration.view.tree</field>
+      <field name="model">sms.account.configuration</field>
+      <field name="arch" type="xml">
+          <tree>
+              <field name="name" />
+              <field name="account_gateway" />
+          </tree>
+      </field>
+    </record>
+
+    <record id="sms_account_config_action" model="ir.actions.act_window">
+      <field name="name">SMS Configuration</field>
+      <field name="res_model">sms.account.configuration</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+      <menuitem id="sms_account_config_menu" name="SMS Configuration"
+        parent="sms_configuration_menu" action="sms_account_config_action" sequence="2"/>
+
+</odoo>

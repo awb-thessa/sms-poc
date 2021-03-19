@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="sms_account_config_data" model="sms.account.config">
+            <field name="install_msg91_sms_gateway">false</field>
+            <field name="install_clicksend_sms_gateway">false</field>
+            <field name="install_textlocal_sms_gateway">false</field>
+        </record>
+
+    </data>
+</odoo>

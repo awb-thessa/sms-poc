@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sms_account,access.sms.account,model_sms_account,,1,1,1,1
+access_sms_account_configuration,access.sms.account.configuration,model_sms_account_configuration,,1,1,1,1
+access_sms_groups,access.sms.groups,model_sms_groups,,1,1,1,1
+access_sms_account_config,access.sms.account.config,model_sms_account_config,,1,1,1,1
+access_sms_history,access.sms.history,model_sms_history,,1,1,1,1
+access_account_sms_template,access.account.sms.template,model_account_sms_template,,1,1,1,1

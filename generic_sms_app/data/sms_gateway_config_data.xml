@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="sms_gateway_configuration_data_msg91" model="sms.account.configuration">
+            <field name="name">MSG91</field>
+            <field name="priority">1</field>
+            <field name="account_gateway">msg91</field>
+            <field name="msg_sender">AKSMSG</field>
+            <field name="msg_country_code">91</field>
+            <field name="msg_route">4</field>
+            <field name="msg_authkey">281504A7feXHVO5d0878af</field>
+            <field name="active" eval="False" />
+        </record>
+
+        <record id="sms_gateway_configuration_data_clicksend" model="sms.account.configuration">
+            <field name="name">ClickSend</field>
+            <field name="priority">2</field>
+            <field name="account_gateway">clicksend</field>
+            <field name="clicksend_username">JohnsonPatel</field>
+            <field name="clicksend_apikey">C0649F64-F7FD-EF0A-BD98-236A49ECE5B5</field>
+            <field name="active" eval="False" />
+        </record>
+
+        <record id="sms_gateway_configuration_data_textlocal" model="sms.account.configuration">
+            <field name="name">TextLocal</field>
+            <field name="priority">3</field>
+            <field name="account_gateway">textlocal</field>
+            <field name="textlocal_sender">TXTLCL</field>
+            <field name="textlocal_authkey">gWTmPMDs0E8-ZlxWQ07rEU5XIZTIwBRoKJw41nAdXe</field>
+            <field name="active" eval="False" />
+        </record>
+
+    </data>
+</odoo>

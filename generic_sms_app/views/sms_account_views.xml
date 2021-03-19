@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <menuitem id="sms_parent_main_menu" name="SMS Gateway" sequence="1" groups="group_enable_sms_feacture"/>
+
+        <record id="draft_sms_account_view_form" model="ir.ui.view">
+          <field name="name">sms.account.view.form</field>
+          <field name="model">sms.account</field>
+          <field name="arch" type="xml">
+              <form string="Draft SMS">
+                    <header>
+                        <button name="action_sms_confirm" type="object" class="btn-primary" string="Send Now" 
+                                    states="draft"/>
+                        <button name="action_delete_group" type="object" class="btn-primary" string="Delete Group" 
+                                    attrs="{'invisible': ['|',('send_sms_type', '!=', 'group'),('state', '!=', 'sent')]}"/>
+                        <button name="action_cancel" states="draft,sent" type="object" string="Cancel"/>
+                        <button name="action_draft" states="cancel" type="object" string="Set to Draft"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,sent"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="send_sms_type"  required="1" widget='radio' options="{'vertical': true}" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+                            </group>
+                            <group>
+                                <field name="group_id" options="{'no_create': True}" attrs="{'readonly': [('state', '!=', 'draft')],'required': [('send_sms_type', '==', 'group')], 'invisible': [('send_sms_type', '!=', 'group')]}"/>
+                                <field name="member_ids" widget="many2many_tags" attrs="{'readonly': [('state', '!=', 'draft')],'required': [('send_sms_type', '==', 'multi_member')], 'invisible': [('send_sms_type', '!=', 'multi_member')]}" />
+                                <field name="mobile_no" attrs="{'readonly': [('state', '!=', 'draft')],'required': [('send_sms_type', '==', 'individual_member')], 'invisible': [('send_sms_type', '!=', 'individual_member')]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="account_id" required="1" options="{'no_create': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            </group>
+                            <group>
+                                <field name="user_id" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="SMS">
+                                <group>
+                                    <field name="template_id" required="1" options="{'no_create': True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="template_body" placeholder="Type your message here..!!!" required="1" options="{'style-inline': true}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                </group>
+                            </page>
+                        </notebook>
+                       </sheet>
+                </form>
+          </field>
+        </record>
+
+        <record id="draft_sms_account_view_tree" model="ir.ui.view">
+          <field name="name">sms.account.view.tree</field>
+          <field name="model">sms.account</field>
+          <field name="arch" type="xml">
+              <tree>
+                  <field name="account_id" />
+                  <field name="template_id" />
+              </tree>
+          </field>
+        </record>
+
+        <record id="draft_sms_account_action" model="ir.actions.act_window">
+            <field name="name">Draft Quick SMS</field>
+            <field name="res_model">sms.account</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','draft')]</field>
+        </record>
+
+        <!-- Draft SMS -->
+        <menuitem id="menu_draft_sms_account" name="Draft Quick SMS"
+                parent="sms_parent_main_menu" action="draft_sms_account_action"
+                sequence="1"/>
+
+        <!-- Sent SMS -->
+        <record id="sent_sms_account_action" model="ir.actions.act_window">
+            <field name="name">Sent Quick SMS</field>
+            <field name="res_model">sms.account</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','sent')]</field>
+        </record>
+
+        <!-- Sent SMS -->
+        <menuitem id="menu_sent_sms_account" name="Sent Quick SMS"
+                parent="sms_parent_main_menu" action="sent_sms_account_action"
+                sequence="2"/>
+
+        <!-- SMS History -->
+        <menuitem id="sms_history_parent_menu" parent="sms_parent_main_menu"
+                name="History/Reporting" sequence="4"/>
+
+        <!-- SMS Configuration -->
+        <menuitem id="sms_configuration_menu" parent="sms_parent_main_menu"
+                name="Configuration" sequence="5"/>
+</odoo>
