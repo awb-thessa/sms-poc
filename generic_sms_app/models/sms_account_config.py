@@ -67,9 +67,20 @@ class SmsAccountConfiguration(models.Model):
                 except ApiException as e:
                     raise UserError("Exception when calling AccountApi->account_get: %s\n" % e)
             elif order.account_gateway == 'textlocal': 
-                params = {'apikey': order.textlocal_authkey}
-                f = urllib.request.urlopen('https://api.textlocal.in/get_sender_names/?'
-                    + urllib.parse.urlencode(params))
+                # params = {'apikey': order.textlocal_authkey}
+                # f = urllib.request.urlopen('https://api.textlocal.in/get_sender_names/?'
+                #    + urllib.parse.urlencode(params))
+                                
+                req = urllib.request.Request('https://messagingsuite.smart.com.ph/cgphttp/servlet/sendmsg?destination=63950467975&text=initial+test+message+fromodoo', method="POST")
+                req.add_header('Authorization': 'Basic amVycnkubWFycXVlc2VzQG1hbmRhbGF5LmNvbS5waDpwNGpOZ0w5Uw==')
+                req.add_header('Content-Type', 'application/json')
+                data = { "hello": "world" }
+                data = json.dumps(data)
+                data = data.encode()
+                f = urllib.request.urlopen(req, data=data)
+                content = f.read()
+                print(content)
+                
                 resp, code = (f.read(), f.code)
                 api_response = yaml.load(resp)
                 if api_response.get('status') == 'success':
