@@ -80,7 +80,8 @@ class SmsAccountConfiguration(models.Model):
                 
                 resp, code = (f.read(), f.code)
                 api_response = yaml.load(resp)
-                if api_response.get('status') == 'success':
+                
+                if api_response:
                     raise UserError(_('Test Connection Successfully to SMART Gateway!.'))
                 else:
                     raise UserError(_('Wrong Authentication Key!.'))
